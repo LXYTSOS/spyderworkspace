@@ -50,6 +50,9 @@ def lwlrTest(testArr, xArr, yArr, k=1.0):
         yHat[i] = lwlr(testArr[i],xArr,yArr,k)
     return yHat
 
+def rssError(yArr,yHatArr):
+    return ((yArr - yHatArr)**2).sum()
+
 if __name__ == '__main__':
     xArr,yArr=loadDataSet('ex0.txt')
 #    ws = standRegres(xArr,yArr)
@@ -80,12 +83,49 @@ if __name__ == '__main__':
     
 #    yHat = lwlrTest(xArr,xArr,yArr,1.0)
 #    yHat = lwlrTest(xArr,xArr,yArr,0.01)
-    yHat = lwlrTest(xArr,xArr,yArr,0.003)
-    xMat = mat(xArr)
-    srtInd = xMat[:,1].argsort(0)
-    xSort = xMat[srtInd][:,0,:]
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.plot(xSort[:,1],yHat[srtInd])
-    ax.scatter(xMat[:,1].flatten().A[0], mat(yArr).T.flatten().A[0], s = 2, c = 'red')
-    plt.show()
+#    yHat = lwlrTest(xArr,xArr,yArr,0.003)
+#    xMat = mat(xArr)
+#    srtInd = xMat[:,1].argsort(0)
+#    xSort = xMat[srtInd][:,0,:]
+#    fig = plt.figure()
+#    ax = fig.add_subplot(111)
+#    ax.plot(xSort[:,1],yHat[srtInd])
+#    ax.scatter(xMat[:,1].flatten().A[0], mat(yArr).T.flatten().A[0], s = 2, c = 'red')
+#    plt.show()
+    
+#==============================================================================
+#     Predict abalone's age
+#==============================================================================
+    abX,abY=loadDataSet('abalone.txt')
+    yHat01=lwlrTest(abX[0:99],abX[0:99],abY[0:99],0.1)
+    yHat1=lwlrTest(abX[0:99],abX[0:99],abY[0:99],1)
+    yHat10=lwlrTest(abX[0:99],abX[0:99],abY[0:99],10)
+    
+#    为了分析预测误差大小，可以调用rssError()计算出这一指标
+    print rssError(abY[0:99],yHat01.T)
+    print rssError(abY[0:99],yHat1.T)
+    print rssError(abY[0:99],yHat10.T)
+    
+#==============================================================================
+#     可以看出，使用较小的核将得到较低的误差。那么为什么不在所有数据集上都使用最小的核呢？
+#     因为使用最小的核将造成过拟合，对新数据不一定能达到最好的预测效果。
+#     下面来看看它们在新数据上的表现
+#==============================================================================
+    yHat01=lwlrTest(abX[100:199],abX[0:99],abY[0:99],0.1)
+    yHat1=lwlrTest(abX[100:199],abX[0:99],abY[0:99],1)
+    yHat10=lwlrTest(abX[100:199],abX[0:99],abY[0:99],10)
+    
+    print rssError(abY[100:199],yHat01.T)
+    print rssError(abY[100:199],yHat1.T)
+    print rssError(abY[100:199],yHat10.T)
+    
+#==============================================================================
+#     在上面三个参数中，核大小等于10时的测试误差最小，但它在训练集上的误差却是最大的。
+#     接下来再和简单线性回归做比较：
+#==============================================================================
+    
+    ws = standRegres(abX[0:99],abY[0:99])
+    yHat = mat(abX[100:199]) * ws
+    print rssError(abY[100:199],yHat.T.A)
+    
+#    简单线性回归达到了与局部加权线性回归类似的效果。
