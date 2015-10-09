@@ -45,5 +45,6 @@ if __name__ == '__main__':
 #    ax.plot(xCopy[:,1], yHat)
 #    plt.show()
     
+    
     print corrcoef(yHat.T, yMat)
     
