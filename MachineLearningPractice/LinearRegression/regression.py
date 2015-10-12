@@ -96,36 +96,36 @@ if __name__ == '__main__':
 #==============================================================================
 #     Predict abalone's age
 #==============================================================================
-    abX,abY=loadDataSet('abalone.txt')
-    yHat01=lwlrTest(abX[0:99],abX[0:99],abY[0:99],0.1)
-    yHat1=lwlrTest(abX[0:99],abX[0:99],abY[0:99],1)
-    yHat10=lwlrTest(abX[0:99],abX[0:99],abY[0:99],10)
+#    abX,abY=loadDataSet('abalone.txt')
+#    yHat01=lwlrTest(abX[0:99],abX[0:99],abY[0:99],0.1)
+#    yHat1=lwlrTest(abX[0:99],abX[0:99],abY[0:99],1)
+#    yHat10=lwlrTest(abX[0:99],abX[0:99],abY[0:99],10)
     
 #    为了分析预测误差大小，可以调用rssError()计算出这一指标
-    print rssError(abY[0:99],yHat01.T)
-    print rssError(abY[0:99],yHat1.T)
-    print rssError(abY[0:99],yHat10.T)
+#    print rssError(abY[0:99],yHat01.T)
+#    print rssError(abY[0:99],yHat1.T)
+#    print rssError(abY[0:99],yHat10.T)
     
 #==============================================================================
 #     可以看出，使用较小的核将得到较低的误差。那么为什么不在所有数据集上都使用最小的核呢？
 #     因为使用最小的核将造成过拟合，对新数据不一定能达到最好的预测效果。
 #     下面来看看它们在新数据上的表现
 #==============================================================================
-    yHat01=lwlrTest(abX[100:199],abX[0:99],abY[0:99],0.1)
-    yHat1=lwlrTest(abX[100:199],abX[0:99],abY[0:99],1)
-    yHat10=lwlrTest(abX[100:199],abX[0:99],abY[0:99],10)
+#    yHat01=lwlrTest(abX[100:199],abX[0:99],abY[0:99],0.1)
+#    yHat1=lwlrTest(abX[100:199],abX[0:99],abY[0:99],1)
+#    yHat10=lwlrTest(abX[100:199],abX[0:99],abY[0:99],10)
     
-    print rssError(abY[100:199],yHat01.T)
-    print rssError(abY[100:199],yHat1.T)
-    print rssError(abY[100:199],yHat10.T)
+#    print rssError(abY[100:199],yHat01.T)
+#    print rssError(abY[100:199],yHat1.T)
+#    print rssError(abY[100:199],yHat10.T)
     
 #==============================================================================
 #     在上面三个参数中，核大小等于10时的测试误差最小，但它在训练集上的误差却是最大的。
 #     接下来再和简单线性回归做比较：
 #==============================================================================
     
-    ws = standRegres(abX[0:99],abY[0:99])
-    yHat = mat(abX[100:199]) * ws
-    print rssError(abY[100:199],yHat.T.A)
+#    ws = standRegres(abX[0:99],abY[0:99])
+#    yHat = mat(abX[100:199]) * ws
+#    print rssError(abY[100:199],yHat.T.A)
     
 #    简单线性回归达到了与局部加权线性回归类似的效果。
