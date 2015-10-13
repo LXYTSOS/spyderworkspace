@@ -32,6 +32,7 @@ def standRegres(xArr, yArr):
 def lwlr(testPoint, xArr, yArr, k = 1.0):
     xMat = mat(xArr); yMat = mat(yArr).T
     m = shape(xMat)[0]
+#    eye()返回一个对角线元素为1，其他元素为0的二维数组。 
     weights = mat(eye((m)))
     for j in range(m):
         diffMat = testPoint - xMat[j,:]
@@ -55,11 +56,11 @@ def rssError(yArr,yHatArr):
 
 if __name__ == '__main__':
     xArr,yArr=loadDataSet('ex0.txt')
-#    ws = standRegres(xArr,yArr)
-#    print ws
-#    xMat = mat(xArr)
-#    yMat = mat(yArr)
-#    yHat = xMat*ws
+    ws = standRegres(xArr,yArr)
+    print ws
+    xMat = mat(xArr)
+    yMat = mat(yArr)
+    yHat = xMat*ws
 #    fig = plt.figure()
 #    ax = fig.add_subplot(111)
 #    ax.scatter(xMat[:,1].flatten().A[0], yMat.T[:,0].flatten().A[0])
