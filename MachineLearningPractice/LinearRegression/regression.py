@@ -51,16 +51,40 @@ def lwlrTest(testArr, xArr, yArr, k=1.0):
         yHat[i] = lwlr(testArr[i],xArr,yArr,k)
     return yHat
 
+def ridgeRegres(xMat, yMat, lam=0.2):
+    xTx = xMat.T * xMat
+    denom = xTx + eye(shape(xMat)[1]) * lam
+    if linalg.det(denom) == 0.0:
+        print "This matrix is singular, cannot do inverse"
+        return
+    ws = denom.I * (xMat.T*yMat)
+    return ws
+
+def ridgeTest(xArr, yArr):
+    xMat = mat(xArr); yMat = mat(yArr).T
+    yMean = mean(yMat,0)
+    yMat = yMat - yMean
+    xMeans = mean(xMat,0)
+    xVar = var(xMat,0)
+    xMat = (xMat - xMeans)/xVar
+    numTestPts = 30
+    wMat = zeros((numTestPts,shape(xMat)[1]))
+    for i in range(numTestPts):
+        ws = ridgeRegres(xMat, yMat, exp(i-10))
+        wMat[i:] = ws.T
+    return wMat
+
 def rssError(yArr,yHatArr):
     return ((yArr - yHatArr)**2).sum()
 
 if __name__ == '__main__':
-    xArr,yArr=loadDataSet('ex0.txt')
-    ws = standRegres(xArr,yArr)
-    print ws
-    xMat = mat(xArr)
-    yMat = mat(yArr)
-    yHat = xMat*ws
+#    xArr,yArr=loadDataSet('ex0.txt')
+#    print xArr[0:2]
+#    ws = standRegres(xArr,yArr)
+#    print ws
+#    xMat = mat(xArr)
+#    yMat = mat(yArr)
+#    yHat = xMat*ws
 #    fig = plt.figure()
 #    ax = fig.add_subplot(111)
 #    ax.scatter(xMat[:,1].flatten().A[0], yMat.T[:,0].flatten().A[0])
@@ -97,7 +121,7 @@ if __name__ == '__main__':
 #==============================================================================
 #     Predict abalone's age
 #==============================================================================
-#    abX,abY=loadDataSet('abalone.txt')
+    abX,abY=loadDataSet('abalone.txt')
 #    yHat01=lwlrTest(abX[0:99],abX[0:99],abY[0:99],0.1)
 #    yHat1=lwlrTest(abX[0:99],abX[0:99],abY[0:99],1)
 #    yHat10=lwlrTest(abX[0:99],abX[0:99],abY[0:99],10)
@@ -130,3 +154,13 @@ if __name__ == '__main__':
 #    print rssError(abY[100:199],yHat.T.A)
     
 #    简单线性回归达到了与局部加权线性回归类似的效果。
+    
+#==============================================================================
+#     Ridge Regression
+#==============================================================================
+    
+    ridgeWeights = ridgeTest(abX, abY)
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.plot(ridgeWeights)
+    plt.show()
