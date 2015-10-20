@@ -78,21 +78,21 @@ def rssError(yArr,yHatArr):
     return ((yArr - yHatArr)**2).sum()
 
 if __name__ == '__main__':
-#    xArr,yArr=loadDataSet('ex0.txt')
-#    print xArr[0:2]
-#    ws = standRegres(xArr,yArr)
-#    print ws
-#    xMat = mat(xArr)
-#    yMat = mat(yArr)
-#    yHat = xMat*ws
-#    fig = plt.figure()
-#    ax = fig.add_subplot(111)
-#    ax.scatter(xMat[:,1].flatten().A[0], yMat.T[:,0].flatten().A[0])
-#    xCopy = xMat.copy()
-#    xCopy.sort(0)
-#    yHat=xCopy*ws
-#    ax.plot(xCopy[:,1], yHat)
-#    plt.show()
+    xArr,yArr=loadDataSet('ex0.txt')
+    print xArr[0:2]
+    ws = standRegres(xArr,yArr)
+    print ws
+    xMat = mat(xArr)
+    yMat = mat(yArr)
+    yHat = xMat*ws
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    ax.scatter(xMat[:,1].flatten().A[0], yMat.T[:,0].flatten().A[0])
+    xCopy = xMat.copy()
+    xCopy.sort(0)
+    yHat=xCopy*ws
+    ax.plot(xCopy[:,1], yHat)
+    plt.show()
     
 #==============================================================================
 #     Relatigity between Estimate and Actual
@@ -121,7 +121,7 @@ if __name__ == '__main__':
 #==============================================================================
 #     Predict abalone's age
 #==============================================================================
-    abX,abY=loadDataSet('abalone.txt')
+#    abX,abY=loadDataSet('abalone.txt')
 #    yHat01=lwlrTest(abX[0:99],abX[0:99],abY[0:99],0.1)
 #    yHat1=lwlrTest(abX[0:99],abX[0:99],abY[0:99],1)
 #    yHat10=lwlrTest(abX[0:99],abX[0:99],abY[0:99],10)
@@ -159,8 +159,8 @@ if __name__ == '__main__':
 #     Ridge Regression
 #==============================================================================
     
-    ridgeWeights = ridgeTest(abX, abY)
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.plot(ridgeWeights)
-    plt.show()
+#    ridgeWeights = ridgeTest(abX, abY)
+#    fig = plt.figure()
+#    ax = fig.add_subplot(111)
+#    ax.plot(ridgeWeights)
+#    plt.show()
