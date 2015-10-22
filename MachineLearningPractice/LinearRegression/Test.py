@@ -19,4 +19,10 @@ m = mat(a)
 #So when we mutiply xMat with yMat, We must transpose yMat to 3*1
 #Then it is xMat * yMat.T
 n = mat(b).T
-print m*n
+#print m*n
+
+#mMean = mean(m,0)
+#print mMean
+
+mVar = var(m,0)
+print mVar

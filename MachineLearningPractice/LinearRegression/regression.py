@@ -65,6 +65,7 @@ def ridgeTest(xArr, yArr):
     yMean = mean(yMat,0)
     yMat = yMat - yMean
     xMeans = mean(xMat,0)
+#    var()求方差
     xVar = var(xMat,0)
     xMat = (xMat - xMeans)/xVar
     numTestPts = 30
@@ -78,21 +79,21 @@ def rssError(yArr,yHatArr):
     return ((yArr - yHatArr)**2).sum()
 
 if __name__ == '__main__':
-    xArr,yArr=loadDataSet('ex0.txt')
-    print xArr[0:2]
-    ws = standRegres(xArr,yArr)
-    print ws
-    xMat = mat(xArr)
-    yMat = mat(yArr)
-    yHat = xMat*ws
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    ax.scatter(xMat[:,1].flatten().A[0], yMat.T[:,0].flatten().A[0])
-    xCopy = xMat.copy()
-    xCopy.sort(0)
-    yHat=xCopy*ws
-    ax.plot(xCopy[:,1], yHat)
-    plt.show()
+#    xArr,yArr=loadDataSet('ex0.txt')
+#    print xArr[0:2]
+#    ws = standRegres(xArr,yArr)
+#    print ws
+#    xMat = mat(xArr)
+#    yMat = mat(yArr)
+#    yHat = xMat*ws
+#    fig = plt.figure()
+#    ax = fig.add_subplot(111)
+#    ax.scatter(xMat[:,1].flatten().A[0], yMat.T[:,0].flatten().A[0])
+#    xCopy = xMat.copy()
+#    xCopy.sort(0)
+#    yHat=xCopy*ws
+#    ax.plot(xCopy[:,1], yHat)
+#    plt.show()
     
 #==============================================================================
 #     Relatigity between Estimate and Actual
